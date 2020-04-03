@@ -18,6 +18,11 @@
       <mat-icon class="icon">dashboard</mat-icon>
       <span class="label">Dashboard</span>
     </a>
+    <a mat-list-item
+      routerLink="/rpd">
+      <mat-icon class="icon">rpd</mat-icon>
+      <span class="label">RPD</span>
+    </a>
     <a  mat-list-item
       *ngIf="auth.isAuthenticated()"
       (click)="auth.logout()" type="button">
@@ -61,6 +66,13 @@
                   routerLink="/dashboard">
                     <mat-icon class="icon">dashboard</mat-icon>
                     <span class="label">Dashboard</span>
+                </a>
+              </li>
+            <li>
+                <a
+                  routerLink="/rpd">
+                    <mat-icon class="icon"></mat-icon>
+                    <span class="label">RPD</span>
                 </a>
               </li>
             <li>

@@ -1,8 +1,15 @@
 import {Injectable} from '@angular/core';
 import {Post} from './Post';
 import {Observable, of} from 'rxjs';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 
-@Injectable()
+import {  throwError } from 'rxjs';
+import { retry, catchError } from 'rxjs/operators';
+
+@Injectable({
+  providedIn: 'root'
+})
+
 export class DataService {
 
   ELEMENT_DATA: Post[] = [
@@ -41,4 +48,61 @@ export class DataService {
   dataLength() {
     return this.ELEMENT_DATA.length;
   }
+}
+
+export class ApiService {
+
+  private RDP_API_SERVICE= 'http://localhost:2020/api/RPD';
+
+   
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET,HEAD,OPTIONS,POST,PUT',
+      'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers',
+      'Authorization': 'my-auth-token'
+    })
+  };
+
+  constructor(private http: HttpClient) { }
+
+  handleError(error: HttpErrorResponse) {
+    let errorMessage = 'Unknown error!';
+    if (error.error instanceof ErrorEvent) {
+      // Client-side errors
+      errorMessage = `Error: ${error.error.message}`;
+    } else {
+      // Server-side errors
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    window.alert(errorMessage);
+    return throwError(errorMessage);
+  }
+
+
+  getRPD() {
+    return this.http.get<RPDApi>(this.RDP_API_SERVICE).pipe(retry(3),catchError(this.handleError));
+  }
+
+  getRPDObservable(sort: string, order: string, page: number): Observable<RPDApi> {
+    var self = this;
+
+    return self.http.get<RPDApi>(self.RDP_API_SERVICE);
+  }
+
+  postRPD(body){
+    var self = this;
+    return self.http.post(self.RDP_API_SERVICE, body, self.httpOptions).pipe(catchError(this.handleError));
+  }
+}
+
+export interface RPDApi {
+  id: string;
+  fecha: string;
+  situacion: string;
+  pensamiento: string;
+  emocion: string;
+  respuesta: string;
+  resultado: string;
 }
