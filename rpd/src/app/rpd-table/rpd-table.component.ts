@@ -2,9 +2,9 @@ import {HttpClient} from '@angular/common/http';
 import {Component, ViewChild, AfterViewInit} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
-import {merge, Observable, of as observableOf} from 'rxjs';
+import {merge, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
-import { ApiService, RPDApi } from '../data.service';
+import { ApiService, RPDTableItems } from '../data.service';
 
 @Component({
   selector: 'app-rpd-table',
@@ -15,8 +15,8 @@ export class RpdTableComponent implements AfterViewInit {
   
   displayedColumns: string[] = ['id', 'fecha', 'situacion', 'pensamiento', 'emocion', 'respuesta', 'resultado'];
   apiService: ApiService | null;
-  data: RPDApi[] = [];
-
+  data: RPDTableItems[] = [];
+  itemsByPage= 5;
   resultsLength = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
@@ -40,19 +40,21 @@ export class RpdTableComponent implements AfterViewInit {
         switchMap(() => {
           self.isLoadingResults = true;
           return self.apiService!.getRPDObservable(
-            self.sort.active, self.sort.direction, self.paginator.pageIndex);
+            self.sort.active, self.sort.direction, self.paginator.pageIndex, self.itemsByPage);
         }),
         map(data => {
           self.isLoadingResults = false;
           self.isRateLimitReached = false;
-          return data;
+          self.resultsLength = data.totalCount;
+          return data.items;
         }),
         catchError(() => {
           self.isLoadingResults = false;
           self.isRateLimitReached = true;
           return observableOf([]);
         }))
-        .subscribe((data: RPDApi[])=> {
+        .subscribe((data: RPDTableItems[])=> {
+
         self.data = data;
       });
   }
