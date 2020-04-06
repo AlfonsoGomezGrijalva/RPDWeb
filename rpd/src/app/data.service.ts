@@ -85,10 +85,12 @@ export class ApiService {
     return this.http.get<RPDApi>(this.RDP_API_SERVICE).pipe(retry(3),catchError(this.handleError));
   }
 
-  getRPDObservable(sort: string, order: string, page: number): Observable<RPDApi> {
+  getRPDObservable(sort: string, order: string, page: number, itemsByPage: number): Observable<RPDTableItems> {
     var self = this;
-
-    return self.http.get<RPDApi>(self.RDP_API_SERVICE);
+    const requestUrl =
+        `${self.RDP_API_SERVICE}?sort=${sort}&order=${order}&page=${page + 1}&itemsByPage=${itemsByPage}`;
+        console.log(requestUrl);
+    return self.http.get<RPDTableItems>(requestUrl);
   }
 
   postRPD(body){
@@ -105,4 +107,9 @@ export interface RPDApi {
   emocion: string;
   respuesta: string;
   resultado: string;
+}
+
+export interface RPDTableItems{
+  items: RPDApi[];
+  totalCount: number;
 }
