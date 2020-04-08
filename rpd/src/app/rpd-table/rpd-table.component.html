@@ -3,41 +3,45 @@
     <div fxLayout="row" fxLayoutAlign="center center" class="content">
       <mat-card class="card" >
         <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column">
-          <h3>Recent Posts</h3>
+          <h3>RPD Guardados</h3>
         </mat-card-title>
+        
+        <div class="add-button">
+          <button mat-raised-button color="primary"(click)="addNewItem()"><mat-icon class="icon">add</mat-icon> Añadir nuevo RPD</button>
+        </div>
+
         <mat-card-content>
-          <div class="example-container mat-elevation-z8">
-            <div class="example-loading-shade"
+          <div class="rpdtable-container mat-elevation-z8">
+            <div class="rpdtable-loading-shade"
                 *ngIf="isLoadingResults || isRateLimitReached">
               <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
-              <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
-                GitHub's API rate limit has been reached. It will be reset in one minute.
+              <div class="rpdtable-rate-limit-reached" *ngIf="isRateLimitReached">
+                API rate limit has been reached. It will be reset in one minute.
               </div>
             </div>
 
-            <div class="example-table-container">
-
-              <table mat-table [dataSource]="data" class="example-table"
+            <div class="rpdtable-table-container">
+              <table mat-table [dataSource]="data" class="rpdtable-table"
                     matSort matSortActive="id" matSortDisableClear matSortDirection="desc">
-                <!-- Number Column -->
+                
                 <ng-container matColumnDef="id">
                   <th mat-header-cell *matHeaderCellDef>#</th>
                   <td mat-cell *matCellDef="let row">{{row.id}}</td>
                 </ng-container>
 
-                <!-- Title Column -->
+               
                 <ng-container matColumnDef="fecha">
                   <th mat-header-cell *matHeaderCellDef>Fecha</th>
                   <td mat-cell *matCellDef="let row">{{row.fecha | date}}</td>
                 </ng-container>
 
-                <!-- State Column -->
+                
                 <ng-container matColumnDef="situacion">
                   <th mat-header-cell *matHeaderCellDef>Situacion</th>
                   <td mat-cell *matCellDef="let row">{{row.situacion}}</td>
                 </ng-container>
 
-                <!-- Created Column -->
+                
                 <ng-container matColumnDef="pensamiento">
                   <th mat-header-cell *matHeaderCellDef>
                     Pensamiento
@@ -65,7 +69,6 @@
                   </th>
                   <td mat-cell *matCellDef="let row">{{row.resultado}}</td>
                 </ng-container>
-
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
               </table>
@@ -78,10 +81,4 @@
     </div>
   </div>
 </div>
-      
-      
 
-
-<!-- Copyright 2019 Google LLC. All Rights Reserved.
-    Use of this source code is governed by an MIT-style license that
-    can be found in the LICENSE file at http://angular.io/license -->
