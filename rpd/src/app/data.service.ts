@@ -107,6 +107,7 @@ export interface RPDApi {
   emocion: string;
   respuesta: string;
   resultado: string;
+  title: string;
 }
 
 export interface RPDTableItems{

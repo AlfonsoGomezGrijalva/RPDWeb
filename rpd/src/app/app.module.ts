@@ -9,27 +9,31 @@ import { MaterialModule } from './material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { DataService } from './data.service';
-import { RpdTableComponent } from './rpd-table/rpd-table.component';
-
+import { RpdTableComponent, RpdModal } from './rpd-table/rpd-table.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     WelcomeComponent,
     DashboardComponent,
-    RpdTableComponent
+    RpdTableComponent,
+    RpdModal
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
     MaterialModule,
     AppRoutingModule,
     AppRouters,
     FlexLayoutModule,
     HttpClientModule
   ],
+  entryComponents: [RpdTableComponent ,RpdModal],
   providers: [DataService],
   bootstrap: [AppComponent]
 })

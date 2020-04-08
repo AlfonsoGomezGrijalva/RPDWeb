@@ -1,10 +1,14 @@
 /* Structure */
-.example-container {
+.rpdtable-container {
   position: relative;
   min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+  min-width: 100%;
 }
 
-.example-table-container {
+.rpdtable-table-container {
   position: relative;
   max-height: 400px;
   overflow: auto;
@@ -14,7 +18,7 @@ table {
   width: 100%;
 }
 
-.example-loading-shade {
+.rpdtable-loading-shade {
   position: absolute;
   top: 0;
   left: 0;
@@ -27,7 +31,7 @@ table {
   justify-content: center;
 }
 
-.example-rate-limit-reached {
+.rpdtable-rate-limit-reached {
   color: #980000;
   max-width: 360px;
   text-align: center;
@@ -47,13 +51,6 @@ table {
   min-width: 80%;
 }
 
-.example-container {
-  display: flex;
-  flex-direction: column;
-  max-height: 500px;
-  min-width: 100%;
-}
-
 .mat-table {
   overflow: auto;
   max-height: 500px;
@@ -61,4 +58,20 @@ table {
 
 a {
   cursor: pointer;
+}
+
+.modal-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.textarea-full-width {
+  width: 100%;
+}
+
+.add-button{
+  padding-bottom: 25px;
+  width: auto;
+  float: right;
 }

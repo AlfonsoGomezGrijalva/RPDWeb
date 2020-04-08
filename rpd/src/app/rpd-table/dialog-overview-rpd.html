@@ -1,0 +1,52 @@
+<h1 mat-dialog-title>{{data.title}}</h1>
+
+<div mat-dialog-content class="modal-form">
+  <div>
+    <mat-form-field>
+      <mat-label>Fecha</mat-label>
+      <input matInput [matDatepicker]="dp3" [(ngModel)]="data.fecha" disabled>
+    <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+    <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+    </mat-form-field>
+  </div>
+  
+  <div>
+    <mat-form-field  class="textarea-full-width">
+      <mat-label>Situacion</mat-label>
+      <textarea matInput placeholder="Ex. It makes me feel..." [(ngModel)]="data.situacion"></textarea>
+    </mat-form-field>
+  </div>
+  
+  <div>
+    <mat-form-field>
+      <mat-label>Pensamiento</mat-label>
+      <textarea matInput placeholder="Ex. It makes me feel..." [(ngModel)]="data.pensamiento"></textarea>
+    </mat-form-field>
+  </div>
+  
+  <div>
+    <mat-form-field>
+      <mat-label>Emocion</mat-label>
+      <textarea matInput placeholder="Ex. It makes me feel..." [(ngModel)]="data.emocion"></textarea>
+    </mat-form-field>
+  </div>
+   
+  <div>
+    <mat-form-field>
+      <mat-label>Respuesta</mat-label>
+      <textarea matInput placeholder="Ex. It makes me feel..." [(ngModel)]="data.respuesta"></textarea>
+    </mat-form-field>
+  </div>
+  
+  <div>
+    <mat-form-field>
+      <mat-label>Resultado</mat-label>
+      <textarea matInput placeholder="Ex. It makes me feel..." [(ngModel)]="data.resultado"></textarea>
+    </mat-form-field>
+  </div>
+  
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cerrar</button>
+  <button mat-button cdkFocusInitial [mat-dialog-close]="data">Guardar</button>
+</div>
