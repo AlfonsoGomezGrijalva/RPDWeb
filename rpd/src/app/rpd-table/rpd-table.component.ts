@@ -15,7 +15,7 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 })
 export class RpdTableComponent implements AfterViewInit {
   
-  displayedColumns: string[] = ['id', 'fecha', 'situacion', 'pensamiento', 'emocion', 'respuesta', 'resultado'];
+  displayedColumns: string[] = ['id', 'fecha', 'situacion', 'pensamiento', 'emocion', 'respuesta', 'resultado','opciones'];
   apiService: ApiService | null;
   data: RPDTableItems[] = [];
   addModal: {
@@ -102,7 +102,32 @@ export class RpdTableComponent implements AfterViewInit {
         });
       }
     });
-  } 
+  }
+  
+  openDialog(item): void {
+    let self = this;
+    const dialogRef = self.dialog.open(RpdModal, {
+      width: '450px',
+      data: {
+        id: item.id,
+        fecha: item.fecha,
+        situacion: item.situacion,
+        pensamiento: item.pensamiento,
+        emocion: item.emocion,
+        respuesta: item.respuesta,
+        resultado: item.resultado,
+        title: 'Editar RPD'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(!!result){
+        self.apiService.postRPD(result).subscribe(() =>{
+          self.loadTable();
+        });
+      }
+    });
+  }
 }
 
 @Component({
