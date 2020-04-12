@@ -22,14 +22,8 @@
 
             <div class="rpdtable-table-container">
               <table mat-table [dataSource]="data" class="rpdtable-table"
-                    matSort matSortActive="id" matSortDisableClear matSortDirection="desc">
-                
-                <ng-container matColumnDef="id">
-                  <th mat-header-cell *matHeaderCellDef>#</th>
-                  <td mat-cell *matCellDef="let row">{{row.id}}</td>
-                </ng-container>
-
-               
+                    matSort matSortActive="fecha" matSortDisableClear matSortDirection="desc">
+                              
                 <ng-container matColumnDef="fecha">
                   <th mat-header-cell *matHeaderCellDef>Fecha</th>
                   <td mat-cell *matCellDef="let row">{{row.fecha | date}}</td>

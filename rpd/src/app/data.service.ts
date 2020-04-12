@@ -52,9 +52,8 @@ export class DataService {
 
 export class ApiService {
 
-  private RDP_API_SERVICE= 'http://localhost:2020/api/RPD';
+  private RDP_API_SERVICE= 'https://us-central1-rpdweb-4af2c.cloudfunctions.net/app';
 
-   
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
@@ -82,20 +81,21 @@ export class ApiService {
 
 
   getRPD() {
-    return this.http.get<RPDApi>(this.RDP_API_SERVICE).pipe(retry(3),catchError(this.handleError));
-  }
+    var self = this;
+    const requestUrl = `${self.RDP_API_SERVICE}/rpd`;
+    return self.http.get<RPDTableItems>(requestUrl,self.httpOptions).pipe(catchError(self.handleError));
+}
 
   getRPDObservable(sort: string, order: string, page: number, itemsByPage: number): Observable<RPDTableItems> {
     var self = this;
-    const requestUrl =
-        `${self.RDP_API_SERVICE}?sort=${sort}&order=${order}&page=${page + 1}&itemsByPage=${itemsByPage}`;
-        console.log(requestUrl);
+    const requestUrl = `${self.RDP_API_SERVICE}/rpd`;
     return self.http.get<RPDTableItems>(requestUrl);
   }
 
   postRPD(body){
     var self = this;
-    return self.http.post(self.RDP_API_SERVICE, body, self.httpOptions).pipe(catchError(this.handleError));
+    const requestUrl = `${self.RDP_API_SERVICE}/rpd`;
+    return self.http.post(requestUrl, body, self.httpOptions).pipe(catchError(this.handleError));
   }
 }
 
