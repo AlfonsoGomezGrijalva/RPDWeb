@@ -15,7 +15,7 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 })
 export class RpdTableComponent implements AfterViewInit {
   
-  displayedColumns: string[] = ['id', 'fecha', 'situacion', 'pensamiento', 'emocion', 'respuesta', 'resultado','opciones'];
+  displayedColumns: string[] = ['fecha', 'situacion', 'pensamiento', 'emocion', 'respuesta', 'resultado','opciones'];
   apiService: ApiService | null;
   data: RPDTableItems[] = [];
   addModal: {
@@ -61,9 +61,9 @@ export class RpdTableComponent implements AfterViewInit {
         }),
         map(data => {
           self.isLoadingResults = false;
-          self.isRateLimitReached = false;
-          self.resultsLength = data.totalCount;
-          return data.items;
+          self.isRateLimitReached = false;          
+          self.resultsLength = data[0].totalCount;
+          return data[0].items;
         }),
         catchError(() => {
           self.isLoadingResults = false;
