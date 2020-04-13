@@ -1,4 +1,4 @@
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Component, ViewChild, AfterViewInit, Inject} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
@@ -7,6 +7,8 @@ import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 import { ApiService, RPDTableItems, RPDApi } from '../data.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { MatSnackBar, MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
+import { inject } from '@angular/core/testing';
 
 @Component({
   selector: 'app-rpd-table',
@@ -32,11 +34,12 @@ export class RpdTableComponent implements AfterViewInit {
   resultsLength = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
+  durationInSeconds = 5;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private _httpClient: HttpClient, private dialog: MatDialog) {}
+  constructor(private _httpClient: HttpClient, private dialog: MatDialog, private _snackBar: MatSnackBar) {}
 
   ngAfterViewInit() {
     var self = this;
@@ -98,6 +101,7 @@ export class RpdTableComponent implements AfterViewInit {
     dialogRef.afterClosed().subscribe(result => {
       if(!!result){
         self.apiService.postRPD(result).subscribe(() =>{
+          self.openSnackBar('Se añadió correctamente!');
           self.loadTable();
         });
       }
@@ -122,10 +126,19 @@ export class RpdTableComponent implements AfterViewInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if(!!result){
-        self.apiService.postRPD(result).subscribe(() =>{
-          self.loadTable();
+        self.apiService.postRPD(result).subscribe(()=>{
+          self.openSnackBar('Se actualizó correctamente!');
+          // console.log(res);
+          // self.loadTable();
         });
       }
+    });
+  }
+
+  openSnackBar(item) {
+    this._snackBar.openFromComponent(SnackBarComponent, {
+      duration: this.durationInSeconds * 1000,
+      data: { text: item }
     });
   }
 }
@@ -138,10 +151,24 @@ export class RpdModal {
 
   constructor(
     public dialogRef: MatDialogRef<RpdModal>,
-    @Inject(MAT_DIALOG_DATA) public data: RPDApi,
+    @Inject(MAT_DIALOG_DATA) 
+    public data: RPDApi,
     private _httpClient: HttpClient) {}
 
   onNoClick(): void {
     this.dialogRef.close();
   }
+}
+
+@Component({
+  selector: 'snack-bar-component',
+  templateUrl: 'snack-bar-component.html',
+  styles: [`
+    .snack-bar {
+      color: white;
+    }
+  `],
+})
+export class SnackBarComponent {
+  constructor( @Inject(MAT_SNACK_BAR_DATA) public data: {text: ''}){}
 }

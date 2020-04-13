@@ -75,3 +75,7 @@ a {
   width: auto;
   float: right;
 }
+
+.mat-form-field {
+  margin-right: 8px;
+}
