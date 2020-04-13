@@ -117,8 +117,13 @@
               "devServerTarget": "angular-material-tutorial:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
-    }},
+    }
+  },
   "defaultProject": "angular-material-tutorial"
 }
