@@ -1,6 +1,5 @@
 import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Component, ViewChild, AfterViewInit, Inject} from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {merge, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
@@ -30,13 +29,11 @@ export class RpdTableComponent implements AfterViewInit {
     resultado: '';
     title: 'Añadir nuevo RPD';
   };
-  itemsByPage= 5;
   resultsLength = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
   durationInSeconds = 5;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private _httpClient: HttpClient, private dialog: MatDialog, private _snackBar: MatSnackBar) {}
@@ -52,15 +49,15 @@ export class RpdTableComponent implements AfterViewInit {
 
     self.apiService = new ApiService(self._httpClient);
     // If the user changes the sort order, reset back to the first page.
-    self.sort.sortChange.subscribe(() => self.paginator.pageIndex = 0);
+    self.sort.sortChange.subscribe();
 
-    merge(self.sort.sortChange, self.paginator.page)
+    merge(self.sort.sortChange)
       .pipe(
         startWith({}),
         switchMap(() => {
           self.isLoadingResults = true;
           return self.apiService!.getRPDObservable(
-            self.sort.active, self.sort.direction, self.paginator.pageIndex, self.itemsByPage);
+            self.sort.active, self.sort.direction);
         }),
         map(data => {
           self.isLoadingResults = false;
@@ -74,8 +71,10 @@ export class RpdTableComponent implements AfterViewInit {
           return observableOf([]);
         }))
         .subscribe((data: RPDTableItems[])=> {
-
-        self.data = data;
+          let array = [];
+          array.push(...data, ...data, ...data, ...data, ...data, ...data, ...data, ...data);
+          console.log(array);
+        self.data = array;
       });
   }
 
@@ -128,8 +127,7 @@ export class RpdTableComponent implements AfterViewInit {
       if(!!result){
         self.apiService.postRPD(result).subscribe(()=>{
           self.openSnackBar('Se actualizó correctamente!');
-          // console.log(res);
-          // self.loadTable();
+          self.loadTable();
         });
       }
     });
