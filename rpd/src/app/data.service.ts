@@ -87,7 +87,7 @@ export class ApiService {
     return self.http.get<RPDTableItems>(requestUrl,self.httpOptions).pipe(catchError(self.handleError));
 }
 
-  getRPDObservable(sort: string, order: string, page: number, itemsByPage: number): Observable<RPDTableItems> {
+  getRPDObservable(sort: string, order: string): Observable<RPDTableItems> {
     var self = this;
     const requestUrl = `${self.RDP_API_SERVICE}/rpd`;
     return self.http.get<RPDTableItems>(requestUrl);

@@ -9,7 +9,7 @@
 }
 
 .rpdtable-table-container {
-  position: relative;
+  /* position: relative; */
   max-height: 400px;
   overflow: auto;
 }
