@@ -48,7 +48,8 @@ table {
 }
 
 .card {
-  min-width: 80%;
+  min-width: 30%;
+  width: 80%;
 }
 
 .mat-table {
@@ -78,4 +79,23 @@ a {
 
 .mat-form-field {
   margin-right: 8px;
+}
+
+.title-center{
+  margin: auto;
+}
+
+.mat-card-title {
+  margin-bottom: 20px;
+}
+
+th.mat-header-cell {
+  text-align: center;
+}
+
+td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
 }

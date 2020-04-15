@@ -71,10 +71,10 @@ export class RpdTableComponent implements AfterViewInit {
           return observableOf([]);
         }))
         .subscribe((data: RPDTableItems[])=> {
-          let array = [];
-          array.push(...data, ...data, ...data, ...data, ...data, ...data, ...data, ...data);
-          console.log(array);
-        self.data = array;
+          // let array = [];
+          // array.push(...data, ...data, ...data, ...data, ...data, ...data, ...data, ...data);
+          // console.log(array);
+        self.data = data;
       });
   }
 
@@ -138,6 +138,11 @@ export class RpdTableComponent implements AfterViewInit {
       duration: this.durationInSeconds * 1000,
       data: { text: item }
     });
+  }
+
+  displayElement(item):boolean{
+    console.log(item);
+    return !(item == "ejemplo" || item == "preguntas");
   }
 }
 
