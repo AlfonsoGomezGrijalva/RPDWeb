@@ -1,13 +1,11 @@
-import {HttpClient, HttpResponse} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Component, ViewChild, AfterViewInit, Inject} from '@angular/core';
 import {MatSort} from '@angular/material/sort';
 import {merge, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 import { ApiService, RPDTableItems, RPDApi } from '../data.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatSnackBar, MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
-import { inject } from '@angular/core/testing';
 
 @Component({
   selector: 'app-rpd-table',
@@ -71,40 +69,8 @@ export class RpdTableComponent implements AfterViewInit {
           return observableOf([]);
         }))
         .subscribe((data: RPDTableItems[])=> {
-          // let array = [];
-          // array.push(...data, ...data, ...data, ...data, ...data, ...data, ...data, ...data);
-          // console.log(array);
-        self.data = data;
+          self.data = data;
       });
-  }
-
-  addNewItem(): void {
-    
-    let self = this;
-    self.apiService = new ApiService(self._httpClient);
-
-    const dialogRef = this.dialog.open(RpdModal, {
-      width: '450px',
-      data: {
-        id: 0,
-        fecha: new Date().toISOString(),
-        situacion: '',
-        pensamiento: '',
-        emocion: '',
-        respuesta: '',
-        resultado: '',
-        title: 'Añadir nuevo RPD'
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if(!!result){
-        self.apiService.postRPD(result).subscribe(() =>{
-          self.openSnackBar('Se añadió correctamente!');
-          self.loadTable();
-        });
-      }
-    });
   }
   
   openDialog(item): void {
@@ -138,11 +104,6 @@ export class RpdTableComponent implements AfterViewInit {
       duration: this.durationInSeconds * 1000,
       data: { text: item }
     });
-  }
-
-  displayElement(item):boolean{
-    console.log(item);
-    return !(item == "ejemplo" || item == "preguntas");
   }
 }
 
