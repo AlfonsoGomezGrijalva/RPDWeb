@@ -2,7 +2,7 @@
 
 <div mat-dialog-content class="modal-form">
   <div>
-    <mat-form-field>
+    <mat-form-field style="width: 100%;">
       <mat-label>Fecha</mat-label>
       <input matInput [matDatepicker]="dp3" [(ngModel)]="data.fecha" disabled>
     <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
@@ -11,37 +11,49 @@
   </div>
   
   <div>
-    <mat-form-field  class="textarea-full-width">
+    <mat-form-field  style="width: 100%;">
       <mat-label>Situacion</mat-label>
-      <textarea matInput placeholder="Ex. It makes me feel..." [(ngModel)]="data.situacion"></textarea>
+      <textarea matInput placeholder="1. ¿Qué pensamientos o imágenes pasaron por tu mente?
+
+2. ¿En qué medida creíste en cada uno de ellos en ese momento? Del 1 al 100" [(ngModel)]="data.situacion"></textarea>
     </mat-form-field>
   </div>
   
   <div>
-    <mat-form-field>
+    <mat-form-field style="width: 100%;">
       <mat-label>Pensamiento</mat-label>
-      <textarea matInput placeholder="Ex. It makes me feel..." [(ngModel)]="data.pensamiento"></textarea>
+      <textarea matInput placeholder="1. ¿Qué pensamientos o imágenes pasaron por tu mente?
+
+2. ¿En qué medida creíste en cada uno de ellos en ese momento? Del 1 al 100" [(ngModel)]="data.pensamiento"></textarea>
     </mat-form-field>
   </div>
   
   <div>
-    <mat-form-field>
+    <mat-form-field style="width: 100%;">
       <mat-label>Emocion</mat-label>
-      <textarea matInput placeholder="Ex. It makes me feel..." [(ngModel)]="data.emocion"></textarea>
+      <textarea matInput placeholder="1. ¿Qué emociones experimentaste (tristeza, ira, angustia, etc.) en ese momento?
+
+2. Cual intensa fue esa emoción del 0 al 100" [(ngModel)]="data.emocion"></textarea>
     </mat-form-field>
   </div>
    
   <div>
-    <mat-form-field>
+    <mat-form-field style="width: 100%;">
       <mat-label>Respuesta</mat-label>
-      <textarea matInput placeholder="Ex. It makes me feel..." [(ngModel)]="data.respuesta"></textarea>
+      <textarea matInput placeholder="1. Utiliza las preguntas que aparecen al final para componer una respuesta adaptativa a los pensamientos automáticos.
+
+2. ¿Cuánto crees en cada respuesta? del 1 al 100." [(ngModel)]="data.respuesta"></textarea>
     </mat-form-field>
   </div>
   
   <div>
-    <mat-form-field>
-      <mat-label>Resultado</mat-label>
-      <textarea matInput placeholder="Ex. It makes me feel..." [(ngModel)]="data.resultado"></textarea>
+    <mat-form-field style="width: 100%;">
+      <mat-label style="width: 100%;">Resultado</mat-label>
+      <textarea matInput placeholder="1. ¿Cuánto crees en cada pensamiento automático?
+
+2. ¿Qué emociones sientes en este momento?
+      
+3. ¿Que harás o que hiciste?" [(ngModel)]="data.resultado"></textarea>
     </mat-form-field>
   </div>
   
