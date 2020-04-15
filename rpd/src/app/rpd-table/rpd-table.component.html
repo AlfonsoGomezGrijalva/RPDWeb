@@ -5,15 +5,7 @@
         <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column">
           <h3 class="title-center">Registro de Pensamientos Disfuncionales</h3>
         </mat-card-title>
-        <mat-card-subtitle>
-          Instrucciones: Cuando notes que tu estado de animo decae, pregúntate: "¿Qué está pasando por mi mente en este momento?"
-          Y anota lo más rápido que puedas el pensamiento o la imaggen mental en la columna correspondiente o pensamiento automático.
-        </mat-card-subtitle>
         
-        <div class="add-button">
-          <button mat-raised-button color="primary"  (click)="addNewItem()"><mat-icon class="icon">add</mat-icon> Añadir nuevo RPD</button>
-        </div>
-
         <mat-card-content>
           <div class="rpdtable-container mat-elevation-z8">
             <div class="rpdtable-loading-shade"
@@ -73,7 +65,7 @@
                   Opciones
                   </th>
                   <td mat-cell *matCellDef="let row">
-                  <a type="button" matTooltip="Editar" (click)="openDialog(row)" *ngIf="displayElement(row.id)">
+                  <a type="button" matTooltip="Editar" (click)="openDialog(row)">
                     <mat-icon class="icon">edit</mat-icon>
                   </a>
                   </td>

@@ -20,8 +20,13 @@
     </a>
     <a mat-list-item
       routerLink="/rpd">
+      <mat-icon class="icon">add</mat-icon>
+      <span class="label">Nuevo RPD</span>
+    </a>
+    <a mat-list-item
+      routerLink="/rpd">
       <mat-icon class="icon">table_chart</mat-icon>
-      <span class="label">RPD</span>
+      <span class="label">RPD Guardados</span>
     </a>
     <a  mat-list-item
       *ngIf="auth.isAuthenticated()"
@@ -70,9 +75,16 @@
               </li>
             <li>
                 <a
-                  routerLink="/rpd">
+                  routerLink="/rpd/nuevo">
+                    <mat-icon class="icon">add</mat-icon>
+                    <span class="label">Nuevo RDP</span>
+                </a>
+              </li>
+            <li>
+                <a
+                  routerLink="/rpd/guardados">
                     <mat-icon class="icon">table_chart</mat-icon>
-                    <span class="label">RPD</span>
+                    <span class="label">RPD Guardados</span>
                 </a>
               </li>
             <li>

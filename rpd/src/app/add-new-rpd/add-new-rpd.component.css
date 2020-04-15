@@ -1,0 +1,21 @@
+  
+  .card {
+    min-width: 30%;
+    width: 80%;
+  }
+    
+  .textarea-full-width {
+    width: 100%;
+  }
+    
+  .mat-form-field {
+    margin-right: 8px;
+  }
+  
+  .title-center{
+    margin: auto;
+  }
+  
+  .mat-card-title {
+    margin-bottom: 20px;
+  }

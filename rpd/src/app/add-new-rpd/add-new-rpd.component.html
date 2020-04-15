@@ -1,0 +1,166 @@
+<div class="mat-app-background basic-container">
+    <div class="container">
+      <div fxLayout="row" fxLayoutAlign="center center" class="content">
+        <mat-card class="card" >
+          <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column">
+            <h3 class="title-center">Registro de Pensamientos Disfuncionales</h3>
+          </mat-card-title>
+            <mat-card-subtitle>
+            Instrucciones: Cuando notes que tu estado de animo decae, pregúntate: "¿Qué está pasando por mi mente en este momento?"
+            Y anota lo más rápido que puedas el pensamiento o la imaggen mental en la columna correspondiente o pensamiento automático.
+            </mat-card-subtitle>
+
+            
+            <mat-card-content>
+                <mat-vertical-stepper #stepper>
+                    <mat-step [stepControl]="fechaFormGroup">
+                    <form [formGroup]="fechaFormGroup">
+                        <ng-template matStepLabel>Fecha</ng-template>
+                        <mat-form-field>
+                        <mat-label>Fecha</mat-label>
+                        <input matInput [matDatepicker]="dp3" [(ngModel)]="data.fecha" [ngModelOptions]="{standalone: true}" disabled>
+                            <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+                            <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+                        </mat-form-field>
+                        <div>
+                        <button mat-button matStepperNext>Siguiente</button>
+                        </div>
+                    </form>
+                    </mat-step>
+                    <mat-step [stepControl]="situacionFormGroup">
+                    <form [formGroup]="situacionFormGroup">
+                        <ng-template matStepLabel>Situacion</ng-template>
+                        <mat-form-field style="width: 100%;">
+                        <mat-label>Situacion</mat-label>
+                        <textarea matInput formControlName="situacionCtrl" placeholder="Invité a juan(a) a ir a un café" [(ngModel)]="data.situacion" required></textarea>
+                        </mat-form-field>
+                        <div>
+                            <button mat-button matStepperPrevious>Atras</button>
+                            <button mat-button matStepperNext>Siguiente</button>
+                        </div>
+                    </form>
+                    </mat-step>
+                    <mat-step [stepControl]="pensamientoFormGroup">
+                        <form [formGroup]="pensamientoFormGroup">
+                            <ng-template matStepLabel>Pensamiento Automatico</ng-template>
+                            <mat-form-field style="width: 100%;">
+                            <mat-label>Pensamiento</mat-label>
+                            <textarea matInput formControlName="pensamientoCtrl" placeholder="ej: El o ella no quiere ir conmigo 90%" [(ngModel)]="data.pensamiento"
+                                    required></textarea>
+                            </mat-form-field>
+                            <div>
+                                <button mat-button matStepperPrevious>Atras</button>
+                                <button mat-button matStepperNext>Siguiente</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="emocionFormGroup">
+                        <form [formGroup]="emocionFormGroup">
+                            <ng-template matStepLabel>Emoción</ng-template>
+                            <mat-form-field style="width: 100%;">
+                            <mat-label>Emocion</mat-label>
+                            <textarea matInput formControlName="emocionCtrl" placeholder="ej: tristeza 75%" [(ngModel)]="data.emocion"
+                                    required></textarea>
+                            </mat-form-field>
+                            <div>
+                                <button mat-button matStepperPrevious>Atras</button>
+                                <button mat-button matStepperNext>Siguiente</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="respuestaFormGroup">
+                        <form [formGroup]="respuestaFormGroup">
+                            <ng-template matStepLabel>Respuesta adaptativa</ng-template>
+
+                            <p>Preguntas para ayudar a componer una respuesta alternativa:</p>
+
+                            <mat-form-field style="width: 100%;">
+                                <mat-label>1. ¿Cual es la evidencia de que el <b>pensamiento automático es verdadero</b>?</mat-label>
+                                <input matInput formControlName="respuesta1Ctrl" matTooltip="¿Cual es la evidencia de que el pensamiento automático es verdadero?"  matTooltipPosition="above" [(ngModel)]="data.respuesta.respuesta1">
+                            </mat-form-field> 
+                            
+                            <mat-form-field style="width: 100%;">
+                                <mat-label>2. ¿Cuál evidencia de que el <b>pensamiento automático no es verdadero</b> es?</mat-label>
+                                <input matInput formControlName="respuesta2Ctrl" matTooltip ="¿Cuál evidencia de que el pensamiento automático no es verdadero es?" matTooltipPosition="above" [(ngModel)]="data.respuesta.respuesta2" required>
+                            </mat-form-field>
+                            
+                            <mat-form-field style="width: 100%;">
+                                <mat-label>3. ¿Existe otra explicación posible?</mat-label>
+                                <input matInput formControlName="respuesta3Ctrl" [(ngModel)]="data.respuesta.respuesta3" required>
+                            </mat-form-field>                            
+
+                            <mat-form-field style="width: 100%;">
+                                <mat-label>4. ¿Qué es lo peor que podría suceder?</mat-label>
+                                <input matInput formControlName="respuesta4Ctrl" [(ngModel)]="data.respuesta.respuesta4" required> 
+                            </mat-form-field>
+
+                            <mat-form-field appearance="fill" style="width: 100%;">
+                                <mat-label>5. ¿Podría soportarlo?</mat-label>
+                                <mat-select [(ngModel)]="data.respuesta.respuesta5" [ngModelOptions]="{standalone: true}" >
+                                <mat-option value="si">Si</mat-option>
+                                <mat-option value="no">No</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field style="width: 100%;">
+                                <mat-label>6. ¿Qué es lo mejor que podría ocurrir?</mat-label>
+                                <input matInput formControlName="respuesta6Ctrl" [(ngModel)]="data.respuesta.respuesta6" required>
+                            </mat-form-field>
+
+                            <mat-form-field style="width: 100%;">
+                                <mat-label>7. ¿Cuál es la alternativa más realista?</mat-label>
+                                <input matInput formControlName="respuesta7Ctrl" [(ngModel)]="data.respuesta.respuesta7" required>
+                            </mat-form-field>
+
+                            <mat-form-field style="width: 100%;">
+                                <mat-label>8. ¿Cuál es el efecto de creer en este pensamiento automático?</mat-label>
+                                <input matInput formControlName="respuesta8Ctrl" matTooltip ="¿Cuál es el efecto de creer en este pensamiento automático?" matTooltipPosition="above" [(ngModel)]="data.respuesta.respuesta8" required>
+                            </mat-form-field>
+
+                            <mat-form-field style="width: 100%;">
+                                <mat-label>9. ¿Cuál podría ser el efecto de cambiar mi pensamiento?</mat-label>
+                                <input matInput formControlName="respuesta9Ctrl" matTooltip ="¿Cuál podría ser el efecto de cambiar mi pensamiento?" matTooltipPosition="above" [(ngModel)]="data.respuesta.respuesta9" required>
+                            </mat-form-field>
+                            
+                            <mat-form-field style="width: 100%;">
+                                <mat-label>10. ¿Qué debo de hacer al respecto?</mat-label>
+                                <input matInput formControlName="respuesta10Ctrl" [(ngModel)]="data.respuesta.respuesta10"  required>
+                            </mat-form-field>
+
+                            <mat-form-field style="width: 100%;">
+                                <mat-label>11. Nombra a un amigo--- Sí se encontrara en esa situación y tuviese este pensamiento, ¿Qué le dirías? </mat-label>
+                                <input matInput formControlName="respuesta11Ctrl" matTooltip ="Nombra a un amigo--- Sí se encontrara en esa situación y tuviese este pensamiento, ¿Qué le dirías" matTooltipPosition="above"  [(ngModel)]="data.respuesta.respuesta11" required>
+                            </mat-form-field>
+
+                            <div>
+                                <button mat-button matStepperPrevious>Atras</button>
+                                <button mat-button matStepperNext>Siguiente</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="resultadoFormGroup">
+                        <form [formGroup]="resultadoFormGroup">
+                            <ng-template matStepLabel>Resultado</ng-template>
+                            <mat-form-field style="width: 100%;">
+                            <mat-label>Resultado</mat-label>
+                            <textarea matInput formControlName="resultadoCtrl" [(ngModel)]="data.resultado" required></textarea>
+                            </mat-form-field>
+                            <div>
+                                <button mat-button matStepperPrevious>Atras</button>
+                                <button mat-button matStepperNext>Siguiente</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step>
+                    <ng-template matStepLabel>Finalizar</ng-template>
+                    <p>Listo, ya puedes guardarlo! </p>
+                    <div>
+                        <button mat-button matStepperPrevious>Atras</button>
+                        <button mat-button (click)="saveItem(data)">Guardar</button>
+                    </div>
+                    </mat-step>
+                </mat-vertical-stepper>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

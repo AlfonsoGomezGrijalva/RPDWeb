@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DataService } from './data.service';
 import { RpdTableComponent, RpdModal } from './rpd-table/rpd-table.component';
+import { AddNewRpdComponent } from './add-new-rpd/add-new-rpd.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { RpdTableComponent, RpdModal } from './rpd-table/rpd-table.component';
     WelcomeComponent,
     DashboardComponent,
     RpdTableComponent,
-    RpdModal
+    RpdModal,
+    AddNewRpdComponent
   ],
   imports: [
     BrowserModule,

@@ -111,6 +111,28 @@ export interface RPDApi {
   title: string;
 }
 
+export interface RpdNewItem{
+  id: string;
+  fecha: string;
+  situacion: string;
+  pensamiento: string;
+  emocion: string;
+  respuesta: {
+    respuesta1: string;
+    respuesta2: string;
+    respuesta3: string;
+    respuesta4: string;
+    respuesta5: string;
+    respuesta6: string;
+    respuesta7: string;
+    respuesta8: string;
+    respuesta9: string;
+    respuesta10: string;
+    respuesta11: string;
+  };
+  resultado: string;
+}
+
 export interface RPDTableItems{
   items: RPDApi[];
   totalCount: number;
