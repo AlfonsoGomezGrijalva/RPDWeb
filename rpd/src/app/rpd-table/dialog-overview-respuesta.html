@@ -1,0 +1,87 @@
+<h1 mat-dialog-title>Preguntas para ayudar a componer una respuesta alternativa:</h1>
+
+<div mat-dialog-content class="modal-form">
+    <div>
+        <mat-form-field style="width: 100%;">
+            <mat-label>1. ¿Cual es la evidencia de que el <b>pensamiento automático es verdadero</b>?</mat-label>
+            <input matInput matTooltip="¿Cual es la evidencia de que el pensamiento automático es verdadero?"  matTooltipPosition="above" [(ngModel)]="data.respuesta.respuesta1">
+        </mat-form-field> 
+    </div>
+  
+    <div>
+        <mat-form-field style="width: 100%;">
+            <mat-label>2. ¿Cuál evidencia de que el <b>pensamiento automático no es verdadero</b> es?</mat-label>
+            <input matInput matTooltip ="¿Cuál evidencia de que el pensamiento automático no es verdadero es?" matTooltipPosition="above" [(ngModel)]="data.respuesta.respuesta2" >
+        </mat-form-field>
+    </div>
+
+    <div>
+        <mat-form-field style="width: 100%;">
+            <mat-label>3. ¿Existe otra explicación posible?</mat-label>
+            <input matInput [(ngModel)]="data.respuesta.respuesta3" >
+        </mat-form-field> 
+    </div>
+
+    <div>
+        <mat-form-field style="width: 100%;">
+            <mat-label>4. ¿Qué es lo peor que podría suceder?</mat-label>
+            <input matInput [(ngModel)]="data.respuesta.respuesta4" > 
+        </mat-form-field>
+    </div>
+  
+    <div>
+        <mat-form-field appearance="fill" style="width: 100%;">
+            <mat-label>5. ¿Podría soportarlo?</mat-label>
+            <mat-select [(ngModel)]="data.respuesta.respuesta5" [ngModelOptions]="{standalone: true}" >
+            <mat-option value="si">Si</mat-option>
+            <mat-option value="no">No</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div>
+        <mat-form-field style="width: 100%;">
+            <mat-label>6. ¿Qué es lo mejor que podría ocurrir?</mat-label>
+            <input matInput [(ngModel)]="data.respuesta.respuesta6" >
+        </mat-form-field>
+    </div>
+
+    <div>
+        <mat-form-field style="width: 100%;">
+            <mat-label>7. ¿Cuál es la alternativa más realista?</mat-label>
+            <input matInput [(ngModel)]="data.respuesta.respuesta7" >
+        </mat-form-field>
+    </div>
+
+    <div>
+        <mat-form-field style="width: 100%;">
+            <mat-label>8. ¿Cuál es el efecto de creer en este pensamiento automático?</mat-label>
+            <input matInput matTooltip ="¿Cuál es el efecto de creer en este pensamiento automático?" matTooltipPosition="above" [(ngModel)]="data.respuesta.respuesta8" >
+        </mat-form-field>
+    </div>
+  
+    <div>
+        <mat-form-field style="width: 100%;">
+            <mat-label>9. ¿Cuál podría ser el efecto de cambiar mi pensamiento?</mat-label>
+            <input matInput matTooltip ="¿Cuál podría ser el efecto de cambiar mi pensamiento?" matTooltipPosition="above" [(ngModel)]="data.respuesta.respuesta9" >
+        </mat-form-field>
+    </div>
+
+    <div>
+        <mat-form-field style="width: 100%;">
+            <mat-label>10. ¿Qué debo de hacer al respecto?</mat-label>
+            <input matInput [(ngModel)]="data.respuesta.respuesta10"  >
+        </mat-form-field>
+    </div>
+
+    <div>
+        <mat-form-field style="width: 100%;">
+            <mat-label>11. Nombra a un amigo--- Sí se encontrara en esa situación y tuviese este pensamiento, ¿Qué le dirías? </mat-label>
+            <input matInput matTooltip ="Nombra a un amigo--- Sí se encontrara en esa situación y tuviese este pensamiento, ¿Qué le dirías" matTooltipPosition="above"  [(ngModel)]="data.respuesta.respuesta11" >
+        </mat-form-field>
+    </div>  
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button (click)="onNoClick()">Cerrar</button>
+  <button mat-raised-button color="primary" cdkFocusInitial [mat-dialog-close]="data">Guardar</button>
+</div>

@@ -13,52 +13,33 @@
   <div>
     <mat-form-field  style="width: 100%;">
       <mat-label>Situacion</mat-label>
-      <textarea matInput placeholder="1. ¿Qué pensamientos o imágenes pasaron por tu mente?
-
-2. ¿En qué medida creíste en cada uno de ellos en ese momento? Del 1 al 100" [(ngModel)]="data.situacion"></textarea>
+      <textarea matInput [(ngModel)]="data.situacion"></textarea>
     </mat-form-field>
   </div>
   
   <div>
     <mat-form-field style="width: 100%;">
       <mat-label>Pensamiento</mat-label>
-      <textarea matInput placeholder="1. ¿Qué pensamientos o imágenes pasaron por tu mente?
-
-2. ¿En qué medida creíste en cada uno de ellos en ese momento? Del 1 al 100" [(ngModel)]="data.pensamiento"></textarea>
+      <textarea matInput [(ngModel)]="data.pensamiento"></textarea>
     </mat-form-field>
   </div>
   
   <div>
     <mat-form-field style="width: 100%;">
       <mat-label>Emocion</mat-label>
-      <textarea matInput placeholder="1. ¿Qué emociones experimentaste (tristeza, ira, angustia, etc.) en ese momento?
-
-2. Cual intensa fue esa emoción del 0 al 100" [(ngModel)]="data.emocion"></textarea>
+      <textarea matInput [(ngModel)]="data.emocion"></textarea>
     </mat-form-field>
   </div>
-   
-  <div>
-    <mat-form-field style="width: 100%;">
-      <mat-label>Respuesta</mat-label>
-      <textarea matInput placeholder="1. Utiliza las preguntas que aparecen al final para componer una respuesta adaptativa a los pensamientos automáticos.
 
-2. ¿Cuánto crees en cada respuesta? del 1 al 100." [(ngModel)]="data.respuesta"></textarea>
-    </mat-form-field>
-  </div>
-  
   <div>
     <mat-form-field style="width: 100%;">
       <mat-label style="width: 100%;">Resultado</mat-label>
-      <textarea matInput placeholder="1. ¿Cuánto crees en cada pensamiento automático?
-
-2. ¿Qué emociones sientes en este momento?
-      
-3. ¿Que harás o que hiciste?" [(ngModel)]="data.resultado"></textarea>
+      <textarea matInput [(ngModel)]="data.resultado"></textarea>
     </mat-form-field>
   </div>
   
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">Cerrar</button>
-  <button mat-button cdkFocusInitial [mat-dialog-close]="data">Guardar</button>
+  <button mat-raised-button (click)="onNoClick()">Cerrar</button>
+  <button mat-raised-button color="primary" cdkFocusInitial [mat-dialog-close]="data">Guardar</button>
 </div>

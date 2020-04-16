@@ -106,31 +106,32 @@ export interface RPDApi {
   situacion: string;
   pensamiento: string;
   emocion: string;
-  respuesta: string;
+  respuesta: RespuestaRdp;
   resultado: string;
   title: string;
 }
-
 export interface RpdNewItem{
   id: string;
   fecha: string;
   situacion: string;
   pensamiento: string;
   emocion: string;
-  respuesta: {
-    respuesta1: string;
-    respuesta2: string;
-    respuesta3: string;
-    respuesta4: string;
-    respuesta5: string;
-    respuesta6: string;
-    respuesta7: string;
-    respuesta8: string;
-    respuesta9: string;
-    respuesta10: string;
-    respuesta11: string;
-  };
+  respuesta: RespuestaRdp;
   resultado: string;
+}
+
+export interface RespuestaRdp {
+  respuesta1: string;
+  respuesta2: string;
+  respuesta3: string;
+  respuesta4: string;
+  respuesta5: string;
+  respuesta6: string;
+  respuesta7: string;
+  respuesta8: string;
+  respuesta9: string;
+  respuesta10: string;
+  respuesta11: string;
 }
 
 export interface RPDTableItems{

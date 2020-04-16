@@ -1,8 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
-import { ApiService, RpdNewItem } from '../data.service'
+import { ApiService, RpdNewItem, RespuestaRdp } from '../data.service'
 import { HttpClient } from '@angular/common/http';
 import { MAT_SNACK_BAR_DATA, MatSnackBar } from '@angular/material/snack-bar';
+import { RespuestaModal } from '../rpd-table/rpd-table.component';
 
 @Component({
   selector: 'app-add-new-rpd',
@@ -20,25 +21,27 @@ export class AddNewRpdComponent implements OnInit {
   apiService: ApiService | null;
   durationInSeconds = 5;
 
+  respuestarpd: RespuestaRdp = {
+    respuesta1: '',
+    respuesta2: '',
+    respuesta3: '',
+    respuesta4: '',
+    respuesta5: '',
+    respuesta6: '',
+    respuesta7: '',
+    respuesta8: '',
+    respuesta9: '',
+    respuesta10: '',
+    respuesta11: '',
+  };
+
   data: RpdNewItem = {
     id: '',
     fecha: new Date().toISOString(),
     situacion: '',
     pensamiento: '',
     emocion: '',
-    respuesta: {
-      respuesta1: '',
-      respuesta2: '',
-      respuesta3: '',
-      respuesta4: '',
-      respuesta5: '',
-      respuesta6: '',
-      respuesta7: '',
-      respuesta8: '',
-      respuesta9: '',
-      respuesta10: '',
-      respuesta11: '',
-    },
+    respuesta: this.respuestarpd,
     resultado: '',
 
   };
