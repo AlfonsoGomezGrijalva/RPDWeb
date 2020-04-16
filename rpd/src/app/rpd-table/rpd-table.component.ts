@@ -3,7 +3,7 @@ import {Component, ViewChild, AfterViewInit, Inject} from '@angular/core';
 import {MatSort} from '@angular/material/sort';
 import {merge, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
-import { ApiService, RPDTableItems, RPDApi } from '../data.service';
+import { ApiService, RPDTableItems, RPDApi, RpdNewItem, RespuestaRdp } from '../data.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar, MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
 
@@ -99,6 +99,22 @@ export class RpdTableComponent implements AfterViewInit {
     });
   }
 
+  respuestaDialog(item){
+    let self = this;
+    const dialogRef = self.dialog.open(RespuestaModal, {
+      data: item
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(!!result){
+        self.apiService.postRPD(result).subscribe(()=>{
+          self.openSnackBar('Se actualizó correctamente!');
+          self.loadTable();
+        });
+      }
+    });
+  }
+
   openSnackBar(item) {
     this._snackBar.openFromComponent(SnackBarComponent, {
       duration: this.durationInSeconds * 1000,
@@ -135,4 +151,21 @@ export class RpdModal {
 })
 export class SnackBarComponent {
   constructor( @Inject(MAT_SNACK_BAR_DATA) public data: {text: ''}){}
+}
+
+@Component({
+  selector: 'dialog-overview-respuesta',
+  templateUrl: 'dialog-overview-respuesta.html',
+})
+
+export class RespuestaModal {
+
+  constructor(
+    public dialogRef: MatDialogRef<RespuestaModal>,
+    @Inject(MAT_DIALOG_DATA) 
+    public data: RPDApi) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 }
