@@ -82,21 +82,31 @@ export class ApiService {
 
 
   getRPD() {
-    var self = this;
+    let self = this;
     const requestUrl = `${self.RDP_API_SERVICE}/rpd`;
     return self.http.get<RPDTableItems>(requestUrl,self.httpOptions).pipe(catchError(self.handleError));
 }
 
   getRPDObservable(sort: string, order: string): Observable<RPDTableItems> {
-    var self = this;
+    let self = this;
     const requestUrl = `${self.RDP_API_SERVICE}/rpd`;
     return self.http.get<RPDTableItems>(requestUrl);
   }
 
   postRPD(body){
-    var self = this;
+    let self = this;
     const requestUrl = `${self.RDP_API_SERVICE}/rpd`;
     return self.http.post(requestUrl, body, self.httpOptions).pipe(catchError(this.handleError));
+  }
+
+  deleteRPD(item){
+    let self = this;
+    const requestUrl = `${self.RDP_API_SERVICE}/rpd`;
+    let options = {
+      body: item,
+      responseType: "text" as "json"
+    }
+    return self.http.delete(requestUrl, options).pipe(catchError(this.handleError));
   }
 }
 

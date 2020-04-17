@@ -12,7 +12,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DataService } from './data.service';
-import { RpdTableComponent, RpdModal, RespuestaModal } from './rpd-table/rpd-table.component';
+import { RpdTableComponent, RpdModal, RespuestaModal, DeleteModal } from './rpd-table/rpd-table.component';
 import { AddNewRpdComponent } from './add-new-rpd/add-new-rpd.component';
 
 @NgModule({
@@ -23,6 +23,7 @@ import { AddNewRpdComponent } from './add-new-rpd/add-new-rpd.component';
     RpdTableComponent,
     RpdModal,
     RespuestaModal,
+    DeleteModal,
     AddNewRpdComponent
   ],
   imports: [
@@ -36,7 +37,7 @@ import { AddNewRpdComponent } from './add-new-rpd/add-new-rpd.component';
     FlexLayoutModule,
     HttpClientModule
   ],
-  entryComponents: [RpdTableComponent ,RpdModal, RespuestaModal],
+  entryComponents: [RpdTableComponent ,RpdModal, RespuestaModal, DeleteModal],
   providers: [DataService],
   bootstrap: [AppComponent]
 })

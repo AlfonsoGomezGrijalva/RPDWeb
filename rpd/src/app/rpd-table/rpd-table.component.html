@@ -70,9 +70,12 @@
                   Opciones
                   </th>
                   <td mat-cell *matCellDef="let row">
-                  <a type="button" matTooltip="Editar" (click)="openDialog(row)">
-                    <mat-icon class="icon">edit</mat-icon>
-                  </a>
+                    <a type="button" matTooltip="Editar" (click)="openDialog(row)">
+                      <mat-icon class="icon">edit</mat-icon>
+                    </a>
+                    <a type="button" matTooltip="Borrar elemento" (click)="deleteItem(row)">
+                      <mat-icon class="icon">delete</mat-icon>
+                    </a>
                   </td>
                 </ng-container>
                 
