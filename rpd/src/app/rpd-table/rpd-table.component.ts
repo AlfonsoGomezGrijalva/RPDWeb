@@ -116,9 +116,27 @@ export class RpdTableComponent implements AfterViewInit {
   }
 
   openSnackBar(item) {
-    this._snackBar.openFromComponent(SnackBarComponent, {
-      duration: this.durationInSeconds * 1000,
+    let self = this;
+    self._snackBar.openFromComponent(SnackBarComponent, {
+      duration: self.durationInSeconds * 1000,
       data: { text: item }
+    });
+  }
+
+  deleteItem(item){
+    let self = this;
+    const dialogRef = self.dialog.open(DeleteModal, {
+      width: '315px',
+      data: item
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(!!result){
+        self.apiService.deleteRPD(result).subscribe(()=>{
+          self.openSnackBar('Se eliminó correctamente!');
+          self.loadTable();
+        });
+      }
     });
   }
 }
@@ -159,7 +177,6 @@ export class SnackBarComponent {
 })
 
 export class RespuestaModal {
-
   constructor(
     public dialogRef: MatDialogRef<RespuestaModal>,
     @Inject(MAT_DIALOG_DATA) 
@@ -169,3 +186,21 @@ export class RespuestaModal {
     this.dialogRef.close();
   }
 }
+
+@Component({
+  selector: 'dialog-overview-deleteitem',
+  templateUrl: 'dialog-overview-deleteitem.html',
+})
+
+export class DeleteModal {
+  constructor(
+    public dialogRef: MatDialogRef<DeleteModal>,
+    @Inject(MAT_DIALOG_DATA) 
+    public data: {text: ''}) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+}
+
+
