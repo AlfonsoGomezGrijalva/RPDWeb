@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { WelcomeComponent } from './welcome/welcome.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { RpdTableComponent } from './rpd-table/rpd-table.component';
 import { AddNewRpdComponent } from './add-new-rpd/add-new-rpd.component'
 
 const routes: Routes = [
   {path: '', component: WelcomeComponent},
-  {path: 'dashboard', component: DashboardComponent},
   {path: 'rpd/guardados', component: RpdTableComponent },
   {path: 'rpd/nuevo', component: AddNewRpdComponent }
 ];
