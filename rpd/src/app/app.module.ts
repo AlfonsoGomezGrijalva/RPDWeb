@@ -8,10 +8,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { WelcomeComponent } from './welcome/welcome.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { DataService } from './data.service';
 import { RpdTableComponent, RpdModal, RespuestaModal } from './rpd-table/rpd-table.component';
 import { AddNewRpdComponent } from './add-new-rpd/add-new-rpd.component';
 
@@ -19,7 +17,6 @@ import { AddNewRpdComponent } from './add-new-rpd/add-new-rpd.component';
   declarations: [
     AppComponent,
     WelcomeComponent,
-    DashboardComponent,
     RpdTableComponent,
     RpdModal,
     RespuestaModal,
@@ -37,7 +34,7 @@ import { AddNewRpdComponent } from './add-new-rpd/add-new-rpd.component';
     HttpClientModule
   ],
   entryComponents: [RpdTableComponent ,RpdModal, RespuestaModal],
-  providers: [DataService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
