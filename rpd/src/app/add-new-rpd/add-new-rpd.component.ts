@@ -4,6 +4,7 @@ import { ApiService, RpdNewItem, RespuestaRdp } from '../data.service'
 import { HttpClient } from '@angular/common/http';
 import { MAT_SNACK_BAR_DATA, MatSnackBar } from '@angular/material/snack-bar';
 import { RespuestaModal } from '../rpd-table/rpd-table.component';
+import { AuthService } from '../shared/services/auth.service';
 
 @Component({
   selector: 'app-add-new-rpd',
@@ -46,7 +47,7 @@ export class AddNewRpdComponent implements OnInit {
 
   };
   
-  constructor(private _formBuilder: FormBuilder, private _httpClient: HttpClient, private _snackBar: MatSnackBar) {}
+  constructor(private _formBuilder: FormBuilder, private _httpClient: HttpClient, private _snackBar: MatSnackBar, private authService: AuthService) {}
 
   ngOnInit() {
     var self = this;
@@ -83,7 +84,7 @@ export class AddNewRpdComponent implements OnInit {
 
   saveItem(item){
     var self = this;
-    self.apiService = new ApiService(self._httpClient);
+    self.apiService = new ApiService(self._httpClient, self.authService);
 
     self.apiService.postRPD(item).subscribe(()=>{
       self.openSnackBar('Se añadió correctamente!');

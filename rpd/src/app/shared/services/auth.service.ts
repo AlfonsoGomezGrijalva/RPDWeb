@@ -13,7 +13,6 @@ import { tap, delay } from 'rxjs/operators';
 
 export class AuthService {
   userData: any; // Save logged in user data
-  token:string;
   constructor(
     public afs: AngularFirestore,   // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
@@ -28,9 +27,6 @@ export class AuthService {
         this.userData = user;
         localStorage.setItem('rpdWeb', JSON.stringify(this.userData));
         JSON.parse(localStorage.getItem('rpdWeb'));
-      } else {
-        localStorage.setItem('rpdWeb', null);
-        JSON.parse(localStorage.getItem('rpdWeb'));
       }
     })
   }
@@ -42,9 +38,8 @@ export class AuthService {
         this.router.navigate(['home']);
         this.router.navigateByUrl('/home');
         this.ngZone.run(() => {
-          result.user.getIdToken().then(st=>{
-            console.log(st);
-            this.token = st;
+          this.afAuth.auth.currentUser.getIdToken().then(st=>{
+            localStorage.setItem('rpdAuthToken', JSON.stringify(st));
           });
         });
       }).catch((error) => {
@@ -52,13 +47,17 @@ export class AuthService {
       })
   }
 
+  get getCurrentToken(): string{
+    return JSON.parse(localStorage.getItem('rpdAuthToken'));
+  }
   get isLoggedInAfterSignIn(): Observable<boolean>{ 
-    return of(this.token !== null);
+    console.log(this.getCurrentToken);
+    return of(this.getCurrentToken !== null);
   }
   // Returns true when user is looged in and email is verified
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('rpdWeb'));
-    return user !== null && this.token !== null;
+    return user !== null && this.getCurrentToken !== null;
   }
 
   /* Setting up user data when sign in with username/password,
@@ -80,6 +79,7 @@ export class AuthService {
   SignOut() {
     return this.afAuth.auth.signOut().then(() => {
       localStorage.removeItem('rpdWeb');
+      localStorage.removeItem('rpdAuthToken');
       this.router.navigate(['sign-in']);
     })
   }
