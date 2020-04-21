@@ -6,6 +6,7 @@ import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 import { ApiService, RPDTableItems, RPDApi, RpdNewItem, RespuestaRdp } from '../data.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar, MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
+import { AuthService } from '../shared/services/auth.service';
 
 @Component({
   selector: 'app-rpd-table',
@@ -34,7 +35,7 @@ export class RpdTableComponent implements AfterViewInit {
 
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private _httpClient: HttpClient, private dialog: MatDialog, private _snackBar: MatSnackBar) {}
+  constructor(private _httpClient: HttpClient, private dialog: MatDialog, private _snackBar: MatSnackBar, private authService: AuthService) {}
 
   ngAfterViewInit() {
     var self = this;
@@ -45,7 +46,7 @@ export class RpdTableComponent implements AfterViewInit {
     var self = this;
     self.data = [];
 
-    self.apiService = new ApiService(self._httpClient);
+    self.apiService = new ApiService(self._httpClient, self.authService);
     // If the user changes the sort order, reset back to the first page.
     self.sort.sortChange.subscribe();
 
@@ -70,6 +71,7 @@ export class RpdTableComponent implements AfterViewInit {
         }))
         .subscribe((data: RPDTableItems[])=> {
           self.data = data;
+          console.log(data);
       });
   }
   

@@ -4,6 +4,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http
 
 import {  throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
+import {  AuthService } from './shared/services/auth.service'
 
 @Injectable({
   providedIn: 'root'
@@ -19,12 +20,12 @@ export class ApiService {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET,HEAD,OPTIONS,POST,PUT',
       'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers',
-      'Authorization': 'my-auth-token'
+      'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('rpdAuthToken'))
     }),
     responseType: "text" as "json"
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
   handleError(error: HttpErrorResponse) {
     let errorMessage = 'Unknown error!';
@@ -49,7 +50,13 @@ export class ApiService {
   getRPDObservable(sort: string, order: string): Observable<RPDTableItems> {
     let self = this;
     const requestUrl = `${self.RDP_API_SERVICE}/rpd`;
-    return self.http.get<RPDTableItems>(requestUrl);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('rpdAuthToken'))
+      })
+    };
+    return self.http.get<RPDTableItems>(requestUrl, httpOptions);
   }
 
   postRPD(body){
@@ -63,6 +70,23 @@ export class ApiService {
     const requestUrl = `${self.RDP_API_SERVICE}/rpd`;
     let options = {
       body: item,
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('rpdAuthToken'))
+      }),
+      responseType: "text" as "json"
+    }
+    return self.http.delete(requestUrl, options).pipe(catchError(this.handleError));
+  }
+
+  signOut(){
+    let self = this;
+    const requestUrl = `${self.RDP_API_SERVICE}/signout`;
+    let options = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('rpdAuthToken'))
+      }),
       responseType: "text" as "json"
     }
     return self.http.delete(requestUrl, options).pipe(catchError(this.handleError));
