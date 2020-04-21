@@ -2,30 +2,31 @@
   <mat-sidenav  #sidenav role="navigation">
    <mat-nav-list>
     <a mat-list-item
-        *ngIf="!auth.isAuthenticated()"
-        (click)="auth.login()">
+      *ngIf="!userCheck()">
       <mat-icon class="icon">input</mat-icon>
       <span class="label">Login</span>
     </a>
     <a mat-list-item
-        *ngIf="auth.isAuthenticated()"
-        routerLink="/">
+        *ngIf="userCheck()"   
+        routerLink="/home">
       <mat-icon class="icon">home</mat-icon>
         <span class="label">Home</span>
     </a>
     <a mat-list-item
+      *ngIf="userCheck()"
       routerLink="/rpd/nuevo">
       <mat-icon class="icon">add</mat-icon>
       <span class="label">Nuevo RPD</span>
     </a>
     <a mat-list-item
+      *ngIf="userCheck()"
       routerLink="/rpd/guardados">
       <mat-icon class="icon">table_chart</mat-icon>
-      <span class="label">RPD Guardados</span>
+      <span class="label">RPDs Guardados</span>
     </a>
     <a  mat-list-item
-      *ngIf="auth.isAuthenticated()"
-      (click)="auth.logout()" type="button">
+      *ngIf="userCheck()"
+      (click)="logout()" type="button">
       <mat-icon class="icon">input</mat-icon>
       <span class="label">LogOut</span>
     </a>
@@ -47,15 +48,14 @@
         <ul fxLayout fxLayoutGap="20px" class="navigation-items">
             <li>
                 <a
-                  *ngIf="!auth.isAuthenticated()"
-                  (click)="auth.login()">
+                *ngIf="!userCheck()">
                   <mat-icon class="icon">input</mat-icon>
                   <span  class="label">Login</span>
                  </a>
             </li>
             <li>
               <a
-                *ngIf="auth.isAuthenticated()"
+              *ngIf="userCheck()"
                 routerLink="/">
                   <mat-icon class="icon">home</mat-icon>
                   <span class="label">Home</span>
@@ -63,22 +63,24 @@
             </li>
             <li>
                 <a
+                *ngIf="userCheck()"
                   routerLink="/rpd/nuevo">
                     <mat-icon class="icon">add</mat-icon>
-                    <span class="label">Nuevo RDP</span>
+                    <span class="label">Nuevo</span>
                 </a>
               </li>
             <li>
                 <a
+                *ngIf="userCheck()"
                   routerLink="/rpd/guardados">
                     <mat-icon class="icon">table_chart</mat-icon>
-                    <span class="label">RPD Guardados</span>
+                    <span class="label">Guardados</span>
                 </a>
               </li>
             <li>
                 <a
-                *ngIf="auth.isAuthenticated()"
-                (click)="auth.logout()" type="button"
+                *ngIf="userCheck()"
+                (click)="logout()" type="button"
                 >
                   <mat-icon class="icon">input</mat-icon>
                   <span class="label">LogOut</span>
