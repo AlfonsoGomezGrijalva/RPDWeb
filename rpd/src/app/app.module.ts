@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { AppRouters } from './app.routes';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -12,6 +11,14 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RpdTableComponent, RpdModal, RespuestaModal, DeleteModal } from './rpd-table/rpd-table.component';
 import { AddNewRpdComponent } from './add-new-rpd/add-new-rpd.component';
+import { SignInComponent } from './sign-in/sign-in.component';
+// Firebase services + enviorment module
+import { AngularFireModule } from "@angular/fire";
+import { AngularFireAuthModule } from "@angular/fire/auth";
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { environment } from '../environments/environment';
+// Auth service
+import { AuthService } from "./shared/services/auth.service";
 
 @NgModule({
   declarations: [
@@ -21,7 +28,8 @@ import { AddNewRpdComponent } from './add-new-rpd/add-new-rpd.component';
     RpdModal,
     RespuestaModal,
     DeleteModal,
-    AddNewRpdComponent
+    AddNewRpdComponent,
+    SignInComponent
   ],
   imports: [
     BrowserModule,
@@ -30,12 +38,14 @@ import { AddNewRpdComponent } from './add-new-rpd/add-new-rpd.component';
     ReactiveFormsModule,
     MaterialModule,
     AppRoutingModule,
-    AppRouters,
     FlexLayoutModule,
-    HttpClientModule
+    HttpClientModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    AngularFirestoreModule,
   ],
   entryComponents: [RpdTableComponent ,RpdModal, RespuestaModal, DeleteModal],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

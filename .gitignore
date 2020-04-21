@@ -2,3 +2,5 @@
 rpd/.firebaserc
 rpd/.firebase/hosting.ZGlzdFxhbmd1bGFyLW1hdGVyaWFsLXR1dG9yaWFs.cache
 rpd/firebase.json
+rpd/src/environments/environment.prod.ts
+rpd/src/environments/environment.ts

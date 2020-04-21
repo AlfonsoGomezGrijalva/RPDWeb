@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthService } from './auth.service';
+import { AuthService } from './shared/services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +10,14 @@ import { AuthService } from './auth.service';
 export class AppComponent {
   title = 'angular-material-tutorial';
   constructor(public auth: AuthService) {
-    auth.handleAuthentication();
+    
+  }
+
+  userCheck(): boolean {
+    return this.auth.isLoggedIn;
+  }
+
+  logout(){
+     this.auth.SignOut();
   }
 }
