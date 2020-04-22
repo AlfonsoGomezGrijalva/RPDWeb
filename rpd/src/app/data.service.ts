@@ -13,17 +13,17 @@ import {  AuthService } from './shared/services/auth.service'
 export class ApiService {
 
   private RDP_API_SERVICE= 'https://us-central1-rpdweb-4af2c.cloudfunctions.net/app';
+  
+  headers= new HttpHeaders({
+    'Content-Type':  'application/json',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET,HEAD,OPTIONS,POST,PUT,DELETE',
+    'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers',
+    'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('rpdWeb')).stsTokenManager.accessToken
+  });
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type':  'application/json',
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET,HEAD,OPTIONS,POST,PUT',
-      'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers',
-      'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('rpdAuthToken'))
-    }),
-    responseType: "text" as "json"
-  };
+  responseType= "text" as "json"
+  
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
@@ -40,21 +40,11 @@ export class ApiService {
     return throwError(errorMessage);
   }
 
-
-  getRPD() {
-    let self = this;
-    const requestUrl = `${self.RDP_API_SERVICE}/rpd`;
-    return self.http.get<RPDTableItems>(requestUrl,self.httpOptions).pipe(catchError(self.handleError));
-}
-
   getRPDObservable(sort: string, order: string): Observable<RPDTableItems> {
     let self = this;
-    const requestUrl = `${self.RDP_API_SERVICE}/rpd`;
+    const requestUrl = `${self.RDP_API_SERVICE}/rpd?user=${JSON.parse(localStorage.getItem('rpdWeb')).uid}`;
     const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('rpdAuthToken'))
-      })
+      headers: self.headers
     };
     return self.http.get<RPDTableItems>(requestUrl, httpOptions);
   }
@@ -62,7 +52,11 @@ export class ApiService {
   postRPD(body){
     let self = this;
     const requestUrl = `${self.RDP_API_SERVICE}/rpd`;
-    return self.http.post(requestUrl, body, self.httpOptions).pipe(catchError(this.handleError));
+    const httpOptions = {
+      headers: self.headers,
+      body: body
+    };
+    return self.http.post(requestUrl, body, httpOptions).pipe(catchError(this.handleError));
   }
 
   deleteRPD(item){
@@ -70,11 +64,8 @@ export class ApiService {
     const requestUrl = `${self.RDP_API_SERVICE}/rpd`;
     let options = {
       body: item,
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('rpdAuthToken'))
-      }),
-      responseType: "text" as "json"
+      headers: self.headers,
+      responseType: self.responseType
     }
     return self.http.delete(requestUrl, options).pipe(catchError(this.handleError));
   }
@@ -83,11 +74,8 @@ export class ApiService {
     let self = this;
     const requestUrl = `${self.RDP_API_SERVICE}/signout`;
     let options = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('rpdAuthToken'))
-      }),
-      responseType: "text" as "json"
+      headers: self.headers,
+      responseType: self.responseType
     }
     return self.http.delete(requestUrl, options).pipe(catchError(this.handleError));
   }
@@ -111,6 +99,7 @@ export interface RpdNewItem{
   emocion: string;
   respuesta: RespuestaRdp;
   resultado: string;
+  user: string;
 }
 
 export interface RespuestaRdp {

@@ -48,11 +48,17 @@ export class AuthService {
   }
 
   get getCurrentToken(): string{
-    return JSON.parse(localStorage.getItem('rpdAuthToken'));
+    return JSON.parse(localStorage.getItem('rpdWeb')).stsTokenManager.accessToken;
   }
   get isLoggedInAfterSignIn(): Observable<boolean>{ 
-    console.log(this.getCurrentToken);
-    return of(this.getCurrentToken !== null);
+    const rpdToken = JSON.parse(localStorage.getItem('rpdAuthToken'));
+    let isLogged = false;
+    console.log(rpdToken);
+    if(rpdToken !== null){
+      isLogged = true;
+      localStorage.removeItem('rpdAuthToken');
+    }
+    return of(isLogged);
   }
   // Returns true when user is looged in and email is verified
   get isLoggedIn(): boolean {
@@ -79,7 +85,6 @@ export class AuthService {
   SignOut() {
     return this.afAuth.auth.signOut().then(() => {
       localStorage.removeItem('rpdWeb');
-      localStorage.removeItem('rpdAuthToken');
       this.router.navigate(['sign-in']);
     })
   }

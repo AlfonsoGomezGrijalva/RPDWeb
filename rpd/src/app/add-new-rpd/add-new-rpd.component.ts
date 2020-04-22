@@ -44,7 +44,7 @@ export class AddNewRpdComponent implements OnInit {
     emocion: '',
     respuesta: this.respuestarpd,
     resultado: '',
-
+    user: JSON.parse(localStorage.getItem('rpdWeb')).uid
   };
   
   constructor(private _formBuilder: FormBuilder, private _httpClient: HttpClient, private _snackBar: MatSnackBar, private authService: AuthService) {}
@@ -108,7 +108,7 @@ export class AddNewRpdComponent implements OnInit {
           respuesta11: '',
         },
         resultado: '',
-    
+        user: JSON.parse(localStorage.getItem('rpdWeb')).uid
       };
     });
 
