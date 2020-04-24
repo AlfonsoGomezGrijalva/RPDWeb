@@ -71,7 +71,6 @@ export class RpdTableComponent implements AfterViewInit {
         }))
         .subscribe((data: RPDTableItems[])=> {
           self.data = data;
-          console.log(data);
       });
   }
   
