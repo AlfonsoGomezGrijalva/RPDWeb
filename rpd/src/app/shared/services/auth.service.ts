@@ -53,7 +53,7 @@ export class AuthService {
   get isLoggedInAfterSignIn(): Observable<boolean>{ 
     const rpdToken = JSON.parse(localStorage.getItem('rpdAuthToken'));
     let isLogged = false;
-    console.log(rpdToken);
+    // console.log(rpdToken);
     if(rpdToken !== null){
       isLogged = true;
       localStorage.removeItem('rpdAuthToken');
@@ -71,7 +71,6 @@ export class AuthService {
   provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
   SetUserData(user) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
-    console.log(userRef);
     const userData: User = {
       uid: user.uid,
       email: user.email
